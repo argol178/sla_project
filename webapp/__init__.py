@@ -1,6 +1,6 @@
-from flask import Flask
+from flask import Flask, render_template
 
-from webapp.model import db
+from webapp.model import db, Songs
 
 def create_app():
     app = Flask(__name__)
@@ -9,6 +9,8 @@ def create_app():
 
     @app.route("/")
     def index():
-        return "HELLO"
+        page_title = 'Тексты песен'
+        hits_list = Songs.query.all()
+        return render_template('index.html', page_title = page_title, hits = hits_list)
 
     return app
